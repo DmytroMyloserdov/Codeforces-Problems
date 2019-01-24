@@ -4,31 +4,49 @@ using namespace std;
 int main()
 {
 	int n; cin >> n;
-	map<int, int> m;
+	vector<int> f (n, 0);
+	vector<int> s (n - 1 , 0);
+	vector<int> t (n - 2 , 0);
+	
 	
 	for (int i = 0; i < n; ++i)
 	{
-		int t; cin >> t;
-		m.insert(pair<int, int> (t, 1));
+		cin >> f[i];
 	}
-	
-	int first, second;
+	sort(f.begin(), f.end());
 	for (int i = 0; i < n - 1; ++i)
 	{
-		int t; cin >> t;
-		m[t]++;
+		cin >> s[i];
 	}
+	sort(s.begin(), s.end());
 	for (int i = 0; i < n - 2; ++i)
 	{
-		int t; cin >> t;
-		m[t]++;
+		cin >> t[i];
+	}
+	sort(t.begin(), t.end());
+	
+	int first = -1, second = -1;
+	for (int i = 0; i < n - 1; ++i)
+	{
+		if (f[i] != s[i])
+		{
+			first = f[i];
+			break;
+		}
 	}
 	
-	for (map<int, int>::iterator it = m.begin(); it != m.end(); ++it)
+	if (first == -1) first = f[n - 1];
+	
+	for (int i = 0; i < n - 2; ++i)
 	{
-		if (it->second == 1) first = it->first;
-		if (it->second == 2) second = it->first;
+		if (t[i] != s[i])
+		{
+			second = s[i];
+			break;
+		}
 	}
+	
+	if (second == -1) second = s[n - 2];
 	
 	cout << first << endl << second;
 }
